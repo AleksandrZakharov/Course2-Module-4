@@ -57,15 +57,14 @@ feature "Module 4 Authentication Test" do
             fill_in "user[username]", with: "rich"
             fill_in "user[password]", with: "123abc"
             click_button "Login"
-            if not page.has_css?('div.pagination') then
+            
                 # Check that there are no more lists than user has
                 expect(page.all('td', :text => /\AList/).count).to eq(userLists.count)
                 # Now check that all lists match user lists
                 userLists.each do |u|
                     expect(page).to have_content(u.list_name)
                     expect(page).to have_content(u.list_due_date)
-                end
-            else
+                
               #if pagination is implemented then skip this test
             end    
         end
