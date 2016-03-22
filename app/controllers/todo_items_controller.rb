@@ -14,12 +14,6 @@ class TodoItemsController < ApplicationController
   # GET /todo_items/new
   def new
     @todo_item = @todo_list.todo_items.new
-    if @todo_item.save
-      
-      redirect_to @todo_list, notice: "Todo Item succesfully added!"
-    else
-      redirect_to @todo_list, alert: "Unable to add Todo Item!"
-    end
   end
 
   # GET /todo_items/1/edit
@@ -46,12 +40,12 @@ class TodoItemsController < ApplicationController
   # PATCH/PUT /todo_items/1.json
   def update
     respond_to do |format|
-      if @todo_item.update(todo_list_params)
+      if @todo_item.update(todo_item_params)
         format.html { redirect_to @todo_list, notice: 'Todo item was successfully updated.' }
-        format.json { render :show, status: :ok, location: @todo_item }
+        format.json { render :show, status: :ok, location: @todo_list }
       else
         format.html { render :edit }
-        format.json { render json: @todo_item.errors, status: :unprocessable_entity }
+        format.json { render json: @todo_list.errors, status: :unprocessable_entity }
       end
     end
   end
